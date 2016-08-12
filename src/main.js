@@ -1,19 +1,41 @@
 import Vue from 'vue'
-import header from './components/header.vue'
-import footer from './components/footer.vue'
-import postList from './components/post/post-list.vue'
-import postTitleList from './components/post/post-title-list.vue'
-import commentList from './components/comment/comment-list.vue'
-import categoryList from './components/category/category-list.vue'
+import VueRouter from 'vue-router'
 
-new Vue({
-    el: '#app',
-    components: {
-        "my-header": header,
-        "my-footer": footer,
-        'post-list': postList,
-        'post-title-list': postTitleList,
-        'comment-list': commentList,
-        'category-list': categoryList
+import app from './components/app.vue'
+import postList from './components/post/post-list.vue'
+import post from './components/post/post.vue'
+
+Vue.use(VueRouter)
+
+var router = new VueRouter({
+    hashbang: false
+})
+
+router.map({
+    '/': {
+        component: postList
+    },
+    '/posts' : {
+        name: 'postListRoute',
+        component: postList
+    },
+    '/posts/category/:categoryId': {
+        name: 'categoryPostListRoute',
+        component: postList
+    },
+    '/posts/user/:userId': {
+        name: 'userPostListRoute',
+        component: postList
+    },
+    '/post/:postId': {
+        name: 'postRoute',
+        component: post
     }
 })
+
+var root = Vue.extend({
+    components: {
+        app: app,
+    }
+})
+router.start(root, '#app')

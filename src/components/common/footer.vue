@@ -1,6 +1,7 @@
 <template>
     <footer id="footer" role="contentinfo">
-        © 2016 <a href="http://www.linux178.com/">The Soul of Linux</a><a href="http://www.miitbeian.gov.cn/">&nbsp;沪ICP备13047964</a>.
+        © 2016 <a href="">Programmer art</a>
+        <a href="http://www.miitbeian.gov.cn/">&nbsp;no content</a>.
     </footer><!-- end #footer -->
 </template>
 
