@@ -1,7 +1,7 @@
 # my-blog
 Vue.js based blog
 
-# concept
+# Concept
 mvvm framework
 webpack
 single page web application
@@ -28,7 +28,7 @@ single page web application
 }
 ```
 
-# build
+# Build
 ```shell
 npm install
 npm run dev
