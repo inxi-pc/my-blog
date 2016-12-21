@@ -1,7 +1,7 @@
 <template>
     <div id="respond-post-169" class="respond">
         <div class="cancel-comment-reply">
-            <a id="cancel-comment-reply-link" href="" rel="nofollow" style="display:none" onclick="return TypechoComment.cancelReply();">取消回复</a>        
+            <a id="cancel-comment-reply-link" href="" rel="nofollow" style="display:none" onclick="return TypechoComment.cancelReply();">取消回复</a>
         </div>
         <h3 id="response">添加新评论</h3>
         <form method="post" action="" id="comment-form" role="form">

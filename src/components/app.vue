@@ -1,3 +1,8 @@
+<style src="app_asset/css/dark.css"></style>
+<style src="app_asset/css/grid.css"></style>
+<style src="app_asset/css/normalize.css"></style>
+<style src="app_asset/css/style.css"></style>
+
 <template>
     <div>
         <my-header></my-header>
@@ -12,7 +17,7 @@
                             </router-view>
                         </div>
                         <div class="col-mb-12 col-offset-1 col-3 kit-hidden-tb" id="secondary" role="complementary">
-                            <post-simple-list 
+                            <post-simple-list
                                 v-bind:order="DESC"
                                 v-bind:by="post_created_at"
                                 v-bind:limit=0>

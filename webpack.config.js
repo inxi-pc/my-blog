@@ -1,6 +1,8 @@
 var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+var appAssetPath = __dirname + '/static/';
+
 module.exports = {
     entry: './src/main.js',
     output: {
@@ -31,6 +33,21 @@ module.exports = {
                 loader: 'url-loader?limit=8192'
             }
         ]
+    },
+
+    vue: {
+        loaders: {
+            css: ExtractTextPlugin.extract(
+                "style-loader",
+                "css-loader"
+            )
+        }
+    },
+
+    resolve: {
+        alias: {
+            app_asset: appAssetPath
+        }
     },
 
     plugins: [

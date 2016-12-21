@@ -3,7 +3,7 @@
         <h3 class="widget-title">最新文章</h3>
         <ul class="widget-list">
             <li v-for="post in posts">
-                <a v-link="{ 
+                <a v-link="{
                     name: 'postRoute',
                     params: {
                         postId: post.post_id
@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import postModel from '../../models/post.js'
-
 export default {
     data: function() {
         return {
@@ -45,7 +43,7 @@ export default {
     },
 
     created: function() {
-        this.posts = postModel.getPostsNewest(this.order, this.by, this.limit);
+    
     }
 }
 </script>

@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import postModel from '../../models/post.js'
-
 import post from './post.vue'
 import pagination from '../common/pagination.vue'
 
@@ -61,9 +59,7 @@ export default {
     },
 
     created: function() {
-        this.posts = postModel.getPostsNewest(0, this.order, this.by, this.limit);
-        this.current = 0;
-        this.total = 5;
+
     },
 
     components: {
@@ -73,35 +69,13 @@ export default {
 
     methods: {
         updateList: function(msg) {
-            this.current = msg.current;
-            this.total = msg.total;
-            this.posts = postModel.getPostsNewest(0, this.order, this.by, this.limit);
+
         }
     },
 
     route: {
         data({ to }) {
-            if (to.query.order) {
-                this.order = to.query.order;
-            }
-            if (to.query.by) {
-                this.by = to.query.by;
-            }
-            if (to.query.limit) {
-                this.limit = to.query.limit;
-            }
 
-            if (to.params.categoryId) {
-                this.posts = postModel.getPostsByCategory(to.params.categoryId, this.order, this.by, this.limit);
-                this.listType = "category";
-                this.title = this.posts[0].category_name;
-            } else if (to.params.userId) {
-                this.posts = postModel.getPostsByUser(to.params.userId, this.order, this.by, this.limit);
-                this.listType = "user";
-                this.title = this.posts[0].user_name;
-            } else {
-                this.posts = postModel.getPostsNewest(this.order, this.by, this.limit);
-            }
         }
     }
 }

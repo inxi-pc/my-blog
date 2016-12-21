@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import categoryModel from '../../models/category.js'
-
 export default {
     data: function() {
         return {
@@ -40,7 +38,7 @@ export default {
     },
 
     created: function() {
-        
+
     }
 }
 </script>

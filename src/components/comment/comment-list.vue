@@ -11,9 +11,6 @@
 </template>
 
 <script>
-import comment from "./comment.vue"
-import commentModel from "../../models/comment.js"
-
 export default {
     data: function() {
         return {
@@ -26,7 +23,7 @@ export default {
     },
 
     created: function() {
-        this.comments = commentModel.getCommentsByPost();
+        
     }
 }
 </script>

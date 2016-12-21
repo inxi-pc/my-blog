@@ -74,7 +74,6 @@
 </template>
 
 <script>
-import postModel from '../../models/post.js'
 import commentList from '../comment/comment-list.vue'
 import commentCreate from '../comment/comment-create.vue'
 
