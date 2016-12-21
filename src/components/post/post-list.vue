@@ -1,10 +1,10 @@
 <template>
     <div>
         <h3 class="archive-title" v-if="title">{{ formattedTitle }}</h3>
-        <post  
+        <post
             v-for="post in posts"
             v-bind:inherit-post="post">
-        </post>       
+        </post>
         <pagination
             v-bind:current="current"
             v-bind:total="total"
@@ -58,7 +58,7 @@ export default {
                 return this.title;
             }
         }
-    },  
+    },
 
     created: function() {
         this.posts = postModel.getPostsNewest(0, this.order, this.by, this.limit);
@@ -89,8 +89,8 @@ export default {
             }
             if (to.query.limit) {
                 this.limit = to.query.limit;
-            }   
-            
+            }
+
             if (to.params.categoryId) {
                 this.posts = postModel.getPostsByCategory(to.params.categoryId, this.order, this.by, this.limit);
                 this.listType = "category";
@@ -106,5 +106,3 @@ export default {
     }
 }
 </script>
-
-

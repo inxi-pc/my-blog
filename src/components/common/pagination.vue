@@ -22,7 +22,7 @@ export default {
             type: Number,
             required: true
         },
-        
+
         total: {
             type: Number,
             required: true
@@ -31,7 +31,7 @@ export default {
 
     methods: {
         isCurrent: function (index) {
-            return this.current == index;   
+            return this.current == index;
         },
 
         isRenderNextButton: function () {

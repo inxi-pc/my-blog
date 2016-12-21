@@ -15,17 +15,17 @@
                 </div>
                 <div class="col-mb-12">
                     <nav id="nav-menu" class="clearfix" role="navigation">
-                        <a v-link="{ 
-                            path: '/', 
+                        <a v-link="{
+                            path: '/',
                             exact: true,
-                            activeClass: 'current' 
+                            activeClass: 'current'
                         }">
                             首页
                         </a>
-                        <a title="Rust" v-link="{ 
-                            name: 'categoryPostListRoute', 
+                        <a title="Rust" v-link="{
+                            name: 'categoryPostListRoute',
                             params: {
-                                'categoryId': 1, 
+                                'categoryId': 1,
                             },
                             query: {
                                 order: 'DESC',
@@ -37,10 +37,10 @@
                         }">
                             Rust
                         </a>
-                        <a title="Javascript" v-link="{ 
-                            name: 'categoryPostListRoute', 
+                        <a title="Javascript" v-link="{
+                            name: 'categoryPostListRoute',
                             params: {
-                                'categoryId': 2, 
+                                'categoryId': 2,
                             },
                             query: {
                                 order: 'DESC',
@@ -52,10 +52,10 @@
                         }">
                             Javascript
                         </a>
-                        <a title="Java" v-link="{ 
-                            name: 'categoryPostListRoute', 
+                        <a title="Java" v-link="{
+                            name: 'categoryPostListRoute',
                             params: {
-                                'categoryId': 3, 
+                                'categoryId': 3,
                             },
                             query: {
                                 order: 'DESC',
@@ -67,10 +67,10 @@
                         }">
                             Java
                         </a>
-                        <a title="Linux" v-link="{ 
-                            name: 'categoryPostListRoute', 
+                        <a title="Linux" v-link="{
+                            name: 'categoryPostListRoute',
                             params: {
-                                'categoryId': 4, 
+                                'categoryId': 4,
                             },
                             query: {
                                 order: 'DESC',
@@ -96,4 +96,3 @@ export default {
 
 }
 </script>
-

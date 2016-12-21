@@ -2,7 +2,7 @@
     <div>
         <article class="post">
             <h2 class="post-title">
-                <a v-link="{ 
+                <a v-link="{
                     name: 'postRoute',
                     params: {
                         postId: post.post_id
@@ -29,8 +29,8 @@
                 </li>
                 <li>时间：{{ post.post_created_at }}</li>
                 <li>分类：
-                    <a v-link="{ 
-                        name: 'categoryPostListRoute', 
+                    <a v-link="{
+                        name: 'categoryPostListRoute',
                         params: {
                             categoryId: post.category_id
                         },
@@ -44,7 +44,7 @@
                     </a>
                 </li>
                 <li>
-                    <a v-link="{ 
+                    <a v-link="{
                         name: 'postRoute',
                         params: {
                             postId: post.post_id
@@ -57,7 +57,7 @@
             <div class="post-content">
                 {{ post.post_content}}
                 <p class="more" v-if="thumb">
-                    <a v-link="{ 
+                    <a v-link="{
                         name: 'postRoute',
                         params: {
                             postId: post.post_id
@@ -67,9 +67,9 @@
                     </a>
                 </p>
             </div>
-        </article>   
+        </article>
         <comment-list v-if="!thumb"></comment-list>
-        <comment-create v-if="!thumb"></comment-create>   
+        <comment-create v-if="!thumb"></comment-create>
     </div>
 </template>
 
@@ -97,19 +97,13 @@ export default {
 
     computed: {
         post: function() {
-            if (this.inheritPost) {
-                return this.inheritPost;
-            } else {
-                return this.selfPost;
-            }
+
         }
     },
 
     route: {
         data ({ to }) {
-            var postId = to.params.postId;
-            this.selfPost = postModel.getPostById(postId);
-            this.thumb = false;
+
         }
     }
 }
