@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3 class="archive-title" v-if="title">{{ formattedTitle }}</h3>
+        <h3 class="archive-title"></h3>
         <post
             v-for="post in posts"
             v-bind:inherit-post="post">
@@ -47,18 +47,10 @@ export default {
     },
 
     computed: {
-        'formattedTitle': function() {
-            if (this.listType == 'category') {
-                return "分类" + this.title + "下的文章: ";
-            } else if (this.listType == 'user') {
-                return this.title + "发布的文章: ";
-            } else {
-                return this.title;
-            }
-        }
+
     },
 
-    created: function() {
+    ready: function() {
 
     },
 
@@ -68,9 +60,7 @@ export default {
     },
 
     methods: {
-        updateList: function(msg) {
 
-        }
     },
 
     route: {

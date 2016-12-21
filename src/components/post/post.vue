@@ -68,30 +68,21 @@
                 </p>
             </div>
         </article>
-        <comment-list v-if="!thumb"></comment-list>
-        <comment-create v-if="!thumb"></comment-create>
     </div>
 </template>
 
 <script>
-import commentList from '../comment/comment-list.vue'
-import commentCreate from '../comment/comment-create.vue'
 
 export default {
     data: function() {
         return {
-            'selfPost': {},
+            'post': {},
             'thumb': true
         }
     },
 
     components: {
-        'comment-list': commentList,
-        'comment-create': commentCreate
-    },
 
-    props: {
-        inheritPost: Object
     },
 
     computed: {

@@ -1,6 +1,6 @@
 <template>
    <section class="widget">
-        <h3 class="widget-title">分类</h3>
+        <h3 class="widget-title">Category</h3>
         <ul class="widget-list">
             <li v-for="category in categories">
                 <a href="">{{ category.category_name }}</a>

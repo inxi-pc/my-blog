@@ -2,6 +2,7 @@ var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var appAssetPath = __dirname + '/static/';
+var appLibPath = __dirname + '/src/lib/';
 
 module.exports = {
     entry: './src/main.js',
@@ -46,7 +47,8 @@ module.exports = {
 
     resolve: {
         alias: {
-            app_asset: appAssetPath
+            app_asset: appAssetPath,
+            app_lib: appLibPath
         }
     },
 
