@@ -2,6 +2,7 @@
 <style src="app_asset/css/grid.css"></style>
 <style src="app_asset/css/normalize.css"></style>
 <style src="app_asset/css/style.css"></style>
+<style src="highlight.js/styles/atom-one-light.css"></style>
 
 <template>
     <div>
@@ -23,11 +24,17 @@
 <script>
 import header from './common/header.vue'
 import footer from './common/footer.vue'
+import hljs from 'highlight.js'
 
 export default {
     components: {
         "my-header": header,
         "my-footer": footer
+    },
+
+    ready: function () {
+        console.log(hljs);
+        hljs.initHighlightingOnLoad();
     }
 }
 </script>
