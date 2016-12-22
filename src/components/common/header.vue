@@ -3,7 +3,7 @@
         <div class="container">
             <div class="colgroup">
                 <div class="site-name col-mb-12 col-9">
-                    <a id="logo" href="">Bear's Home</a>
+                    <a id="logo" href="">Owen's Bear</a>
                     <p class="description">Programming</p>
                 </div>
                 <div class="site-search col-3 kit-hidden-tb">

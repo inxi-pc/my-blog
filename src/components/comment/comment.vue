@@ -11,18 +11,15 @@
             <p>{{ comment.comment_content }}</p>
         </div>
         <div class="comment-reply">
-            <a href="" rel="nofollow" onclick="">回复</a>
+            <a href="" rel="nofollow" onclick="">Reply</a>
         </div>
     </li>
 </template>
 
 <script>
 export default {
-    props: {
-        comment: {
-            type: Object,
-            required: true
-        }
+    data: function () {
+        comment: {},
     }
 }
 </script>

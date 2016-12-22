@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import Entry from 'app_lib/entry.js'
+
 import app from './components/app.vue'
 import postList from './components/post/post-list.vue'
 import post from './components/post/post.vue'
@@ -33,7 +35,7 @@ router.map({
     }
 })
 
-var root = Vue.extend({
+var root = Entry.extend({
     components: {
         app: app,
     }

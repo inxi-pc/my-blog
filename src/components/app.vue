@@ -16,18 +16,6 @@
                                 v-bind:limit=0>
                             </router-view>
                         </div>
-                        <div class="col-mb-12 col-offset-1 col-3 kit-hidden-tb" id="secondary" role="complementary">
-                            <post-simple-list
-                                v-bind:order="DESC"
-                                v-bind:by="post_created_at"
-                                v-bind:limit=0>
-                            </post-simple-list>
-                            <category-simple-list
-                                v-bind:order="DESC"
-                                v-bind:by="category_id"
-                                v-bind:limit=0>
-                            </category-simple-list>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -38,15 +26,11 @@
 <script>
 import header from './common/header.vue'
 import footer from './common/footer.vue'
-import postSimpleList from './post/post-simple-list.vue'
-import categorySimpleList from './category/category-simple-list.vue'
 
 export default {
     components: {
         "my-header": header,
-        "my-footer": footer,
-        'post-simple-list': postSimpleList,
-        'category-simple-list': categorySimpleList
+        "my-footer": footer
     }
 }
 </script>

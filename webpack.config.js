@@ -3,6 +3,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var appAssetPath = __dirname + '/static/';
 var appLibPath = __dirname + '/src/lib/';
+var appConfigPath = __dirname + '/';
 
 module.exports = {
     entry: './src/main.js',
@@ -21,6 +22,11 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
+                exclude: /node_modules\//
+            },
+            {
+                test: /\.json$/,
+                loader: 'json-loader',
                 exclude: /node_modules\//
             },
             {
@@ -48,7 +54,8 @@ module.exports = {
     resolve: {
         alias: {
             app_asset: appAssetPath,
-            app_lib: appLibPath
+            app_lib: appLibPath,
+            app_config: appConfigPath
         }
     },
 

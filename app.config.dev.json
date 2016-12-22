@@ -1,0 +1,4 @@
+{
+    "apiGateway": "http://localhost:8888",
+    "pingInterval": 30000
+}

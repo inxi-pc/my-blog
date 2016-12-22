@@ -1,0 +1,4 @@
+{
+    "apiGateway": "http://45.76.202.96:8080",
+    "pingInterval": 30000
+}
