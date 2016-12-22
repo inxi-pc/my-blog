@@ -4,7 +4,7 @@
             <a v-on:click="sendPaginationMsg(i)">{{ i + 1 }}</a>
         </li>
         <li v-if="isRenderNextButton()">
-            <a class="next" v-on:click="sendPaginationMsg(current + 1)">后一页 »</a>
+            <a class="next" v-on:click="sendPaginationMsg(current + 1)">Next »</a>
         </li>
     </ol>
 </template>

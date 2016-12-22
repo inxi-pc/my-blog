@@ -5,7 +5,7 @@ import Entry from 'app_lib/entry.js'
 
 import app from './components/app.vue'
 import postList from './components/post/post-list.vue'
-import post from './components/post/post.vue'
+import postDetail from './components/post/post-detail.vue'
 
 Vue.use(VueRouter)
 
@@ -18,20 +18,12 @@ router.map({
         component: postList
     },
     '/posts' : {
-        name: 'postListRoute',
-        component: postList
-    },
-    '/posts/category/:categoryId': {
-        name: 'categoryPostListRoute',
-        component: postList
-    },
-    '/posts/user/:userId': {
-        name: 'userPostListRoute',
+        name: 'post-list',
         component: postList
     },
     '/post/:postId': {
-        name: 'postRoute',
-        component: post
+        name: 'post-detail',
+        component: postDetail
     }
 })
 

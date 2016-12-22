@@ -10,10 +10,7 @@
                 <div class="container">
                     <div class="colgroup">
                         <div class="col-mb-12 col-8" id="main" role="main">
-                            <router-view
-                                v-bind:order="DESC"
-                                v-bind:by="post_created_at"
-                                v-bind:limit=0>
+                            <router-view>
                             </router-view>
                         </div>
                     </div>

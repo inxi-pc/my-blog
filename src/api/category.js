@@ -1,47 +1,174 @@
-export default class Category {
+import API from 'app_lib/api.js'
+import Auth from 'app_api/auth.js'
+import * as Helper from 'app_lib/helper.js'
+
+class CategoryModel {
     constructor() {
         // @primary key
-        this.category_id = 0;
-        // @unique
-        this.category_name = "";
-        this.category_created_at = "";
-        this.category_updated_at = "";
-        this.category_deleted_at = "";
-        // addtional business field
-        this.post_count = 0;
+        this.category_id = null;
+        this.category_parent_id = null;
+        this.category_root_id = null;
+        this.category_name_en = null;
+        this.category_name_cn = null;
+        this.category_level = null;
+        this.category_created_at = null;
+        this.category_updated_at = null;
+        this.category_enabled = null;
+    }
+}
+
+export { CategoryModel }
+
+export default class Category extends API {
+    constructor() {
+        super();
+        this.apiGateway += "/categories/";
+        this.listApiGateway = this.apiGateway + 'list';
     }
 
-    static getCategoryById(cId) {
-        return this.getCategory(cId);
+    /**
+     *
+     * @return Promise
+     */
+    createCategory(vue, category) {
+        return vue.$http.post(this.apiGateway, category, {
+            headers: {
+                Authorization: 'bearer ' + API.getAuthorizedToken()
+            }
+        });
     }
 
-    static getCategoryByName(cName) {
-        return this.getCategory(cName);
+    /**
+     *
+     * @return Promise
+     */
+    deleteCategory(vue, categoryId) {
+        var url = this.apiGateway + categoryId;
+
+        return vue.$http.delete(url, {
+            headers: {
+                Authorization: 'bearer ' + API.getAuthorizedToken()
+            }
+        });
     }
 
-    static getCategory(cond) {
-        var category = new Category();
-        category.category_id = 1;
-        category.category_name = "Javascript";
-        category.category_created_at = "2010-03-04 12:00:00";
-        category.category_updated_at = "2010-03-14 22:00:00";
-        category.post_count = 1;
+    /**
+     *
+     * @return Promise
+     */
+    updateCategory(vue, categoryId, category) {
+        var url = this.apiGateway + categoryId;
 
-        return category;
+        category.category_id = null;
+        category.category_parent_id = null;
+        category.category_root_id = null;
+        category.category_level = null;
+        category.category_created_at = null;
+        category.category_updated_at = null;
+        category.category_enabled = null;
+        category.children = null;
+
+        return vue.$http.put(url, category, {
+            headers: {
+                Authorization: 'bearer ' + API.getAuthorizedToken()
+            }
+        });
+    }
+    /**
+     *
+     * @return Promise
+     */
+    getCategoryById(vue, categoryId) {
+        var url = this.apiGateway + categoryId;
+
+        return vue.$http.get(url, {
+            headers: {
+                Authorization: 'bearer ' + API.getAuthorizedToken()
+            }
+        });
     }
 
-    static getCategoriesByIds(cIds, order, by, limit) {
-        return this.getCategories(cIds);
+    /**
+     *
+     * @return Promise
+     */
+    getCategoriesByIds(vue, categoryIds) {
+        return this.getCategories(categoryIds, {
+            headers: {
+                Authorization: 'bearer ' + API.getAuthorizedToken()
+            }
+        });
     }
 
-    static getCategoriesNewest(order, by, limit) {
-        return this.getCategories();
+    /**
+     *
+     * @return Promise
+     */
+    getCategoriesByCondition(vue, conditions) {
+        return this.getCategories(vue, conditions, {
+            headers: {
+                Authorization: 'bearer ' + API.getAuthorizedToken()
+            }
+        });
     }
 
-    static getCategories(cond, order = "DESC", by = "category_id", limit = 0) {
-        var categories = [];
-        categories.push(this.getCategory(0));
+    /**
+     * @return Promise
+     */
+    getCategoryList(vue, conditions, page, sort) {
+        var params = API.mergeParams(conditions, page, sort);
+        var url = this.listApiGateway;
 
-        return categories;
+        return  vue.$http.get(url, {
+            params: params,
+            headers: {
+                Authorization: 'bearer ' + API.getAuthorizedToken()
+            }
+        });
+    }
+
+    /**
+     * @return Promise
+     */
+    getCategories(vue, conditions) {
+        var params = API.mergeParams(conditions);
+
+        return vue.$http.get(this.apiGateway, {
+            params: params,
+            headers: {
+                Authorization: 'bearer ' + API.getAuthorizedToken()
+            }
+        });
+    }
+
+    /**
+     * @return Promise
+     */
+    getCategoryListTree(vue, conditions, page, sort) {
+        var params = API.mergeParams(conditions, page, sort);
+        params.add({'tree_enabled': true});
+        var url = this.listApiGateway;
+
+        return  vue.$http.get(url, {
+            params: params,
+            headers: {
+                Authorization: 'bearer ' + API.getAuthorizedToken()
+            }
+        });
+    }
+
+    /**
+     * @return Promise
+     */
+    getCategoriesTree(vue, conditions, page, sort) {
+        var params = API.mergeParams(conditions);
+        params.add({'tree_enabled': true});
+
+        return vue.$http.get(this.apiGateway, {
+            params: params,
+            headers: {
+                Authorization: 'bearer ' + API.getAuthorizedToken()
+            }
+        });
     }
 }

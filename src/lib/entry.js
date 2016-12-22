@@ -9,7 +9,7 @@ Vue.http.interceptors.push((request, next) => {
     request.credentials = true;
 
     next((response) => {
-       API.responseHandler(response);
+        API.responseHandler(response);
     });
 })
 
@@ -25,7 +25,7 @@ function decodeQueryParams() {
             }
         }
     }
- 
+
     return params;
 }
 

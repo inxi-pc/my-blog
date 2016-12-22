@@ -1,53 +1,74 @@
 <template>
     <div>
         <h3 class="archive-title"></h3>
-        <post
-            v-for="post in posts"
-            v-bind:inherit-post="post">
-        </post>
-        <pagination
-            v-bind:current="current"
+        <div v-for="post in posts">
+            <article class="post">
+                <h2 class="post-title">
+                    <a v-link="{
+                        name: 'post-detail',
+                        params: {
+                            postId: post.post_id
+                        }
+                    }">
+                        {{ post.post_title }}
+                    </a>
+                </h2>
+                <ul class="post-meta">
+                    <li>
+                        Author：{{ post.user_name }}
+                    </li>
+                    <li>Time：{{ post.post_created_at }}</li>
+                    <li>
+                        Category：{{ post.category_name }}
+                    </li>
+                    <li>
+                        <a>2 comments</a>
+                    </li>
+                </ul>
+                <div class="post-content">
+                    {{{ post.post_content }}}
+                    <p class="more">
+                        <a v-link="{
+                            name: 'post-detail',
+                            params: {
+                                postId: post.post_id
+                            }
+                        }">
+                            - Read More -
+                        </a>
+                    </p>
+                </div>
+            </article>
+        </div>
+        <page
+            v-bind:current="offset"
             v-bind:total="total"
-            v-on:pagination="updateList">
-        </pagination>
+            v-on:pagination="updatePostList">
+        </page>
     </div>
 </template>
 
 <script>
-import post from './post.vue'
-import pagination from '../common/pagination.vue'
+import Pagination from 'app_api/pagination.js'
+import Sort from 'app_api/sort.js'
+import Post from 'app_api/post.js'
+import { PostModel } from 'app_api/post.js'
+
+import * as Helper from 'app_lib/helper.js'
+
+import page from '../common/pagination.vue'
 
 export default {
     data: function () {
         return {
-            current: 0,
-            total: 0,
-            posts: []
+            posts: [],
+            // pagination
+            orderType: "desc",
+            orderBy: "post_id",
+            limit: 10,
+            offset: 0,
+            total: 0
         }
-    },
-
-    props: {
-        listType: String,
-        title: String,
-        order: {
-            type: String,
-            default: "DESC",
-            required: true
-        },
-        by: {
-            type: String,
-            default: "post_id",
-            required: true
-        },
-        limit: {
-            type: Number,
-            default: 0,
-            required: true
-        }
-    },
-
-    computed: {
-
     },
 
     ready: function() {
@@ -55,17 +76,32 @@ export default {
     },
 
     components: {
-        'post': post,
-        'pagination': pagination
+        'page': page
     },
 
     methods: {
+        updatePostList: function () {
+            return [];
+        },
 
+        getPostsByCategoryId: function (categoryId) {
+            var page = new Pagination(this.offset, this.limit);
+            var sort = new Sort(this.orderType, this.orderBy, "category_id");
+            new Post().getPostList(this, {category_id: categoryId}, page, sort)
+            .then((response) => {
+                this.posts = response.body.data;
+            }, (response) => {
+                
+            });
+        }
     },
 
     route: {
         data({ to }) {
-
+            if (!Helper.isNullOrEmpty(to.query.category_id)) {
+                var categoryId = to.query.category_id;
+                this.getPostsByCategoryId(categoryId);
+            }
         }
     }
 }
