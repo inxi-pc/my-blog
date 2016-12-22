@@ -62,7 +62,7 @@ export default {
     ready: function () {
         var page = new Pagination(this.offset, this.limit);
         var sort = new Sort(this.orderType, this.orderBy, "category_id");
-        new Category().getCategoryList(this, null, page, sort).then((response) => {
+        new Category().getCategoryList(this, {category_enabled: true}, page, sort).then((response) => {
             this.categories = response.body.data;
         }, (response) => {
             console.log(response);

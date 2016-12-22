@@ -10,7 +10,7 @@ module.exports = {
     entry: './src/main.js',
     output: {
         path: __dirname + '/dist',
-        publicPath: "/",
+        publicPath: "/dist",
         filename: 'js/build.js'
     },
 
