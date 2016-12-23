@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h3 class="archive-title"></h3>
         <div v-for="post in posts">
             <article class="post">
                 <h2 class="post-title">
@@ -20,9 +19,6 @@
                     <li>Time：{{ post.post_created_at }}</li>
                     <li>
                         Category：{{ post.category_name }}
-                    </li>
-                    <li>
-                        <a>2 comments</a>
                     </li>
                 </ul>
                 <div class="post-content">
@@ -72,7 +68,11 @@ export default {
     },
 
     ready: function() {
-
+        $(document).on("DOMNodeInserted", function (event) {
+            $(event.target).find("pre code").each(function (i, e) {
+                $(e).addClass("hljs");
+            })
+        })
     },
 
     components: {

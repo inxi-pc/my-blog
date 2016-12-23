@@ -19,9 +19,6 @@
                         {{ post.category_name }}
                     </a>
                 </li>
-                <li>
-                    <a>2 comments</a>
-                </li>
             </ul>
             <div class="post-content">
                 {{{ post.post_content }}}

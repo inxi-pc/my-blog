@@ -1,13 +1,8 @@
-<style src="app_asset/css/dark.css"></style>
+
 <style src="app_asset/css/grid.css"></style>
 <style src="app_asset/css/normalize.css"></style>
 <style src="app_asset/css/style.css"></style>
-<style src="highlight.js/styles/atom-one-light.css"></style>
-<style scope>
-    pre code {
-        background: none;
-    }
-</style>
+<style src="highlight.js/styles/dark.css"></style>
 
 <template>
     <div>
@@ -38,7 +33,6 @@ export default {
     },
 
     ready: function () {
-        console.log(hljs);
         hljs.initHighlightingOnLoad();
     }
 }
