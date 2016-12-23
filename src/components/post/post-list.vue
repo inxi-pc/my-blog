@@ -91,7 +91,7 @@ export default {
             .then((response) => {
                 this.posts = response.body.data;
             }, (response) => {
-                
+
             });
         }
     },
