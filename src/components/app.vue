@@ -34,6 +34,11 @@ export default {
 
     ready: function () {
         hljs.initHighlightingOnLoad();
+        $(document).on("DOMNodeInserted", function (event) {
+            $(event.target).find("pre code").each(function (i, e) {
+                $(e).addClass("hljs");
+            })
+        })
     }
 }
 </script>

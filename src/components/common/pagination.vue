@@ -1,12 +1,14 @@
 <template>
-    <ol class="page-navigator">
-        <li v-for="i in total" v-bind:class="{'current': isCurrent(i)}">
-            <a v-on:click="sendPaginationMsg(i)">{{ i + 1 }}</a>
-        </li>
-        <li v-if="isRenderNextButton()">
-            <a class="next" v-on:click="sendPaginationMsg(current + 1)">Next »</a>
-        </li>
-    </ol>
+    <div>
+        <ol class="page-navigator">
+            <li v-for="i in total" v-bind:class="{'current': isCurrent(i)}">
+                <a v-on:click="sendPaginationMsg(i)">{{ i + 1 }}</a>
+            </li>
+            <li v-if="isRenderNextButton()">
+                <a class="next" v-on:click="sendPaginationMsg(current + 1)">Next »</a>
+            </li>
+        </ol>
+    </div>
 </template>
 
 <script>

@@ -60,7 +60,7 @@ export default {
             posts: [],
             // pagination
             orderType: "desc",
-            orderBy: "post_id",
+            orderBy: "post_created_at",
             limit: 10,
             offset: 0,
             total: 0
@@ -80,10 +80,10 @@ export default {
             return [];
         },
 
-        getPostsByCategoryId: function (categoryId) {
+        getNewestPosts: function () {
             var page = new Pagination(this.offset, this.limit);
-            var sort = new Sort(this.orderType, this.orderBy, "category_id");
-            new Post().getPostList(this, {category_id: categoryId}, page, sort)
+            var sort = new Sort(this.orderType, this.orderBy, "post_created_at");
+            new Post().getPostList(this, {post_enabled: true, post_published: true}, page, sort)
             .then((response) => {
                 this.posts = response.body.data;
             }, (response) => {
@@ -94,10 +94,7 @@ export default {
 
     route: {
         data({ to }) {
-            if (!Helper.isNullOrEmpty(to.query.category_id)) {
-                var categoryId = to.query.category_id;
-                this.getPostsByCategoryId(categoryId);
-            }
+            this.getNewestPosts();
         }
     }
 }

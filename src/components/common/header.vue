@@ -21,6 +21,13 @@
                 </div>
                 <div class="col-mb-12">
                     <nav id="nav-menu" class="clearfix" role="navigation">
+                        <a class="active" title="News"
+                        v-on:click="activeTab($event)"
+                        v-link="{
+                            name: 'news'
+                        }">
+                            News
+                        </a>
                         <a v-for="category in categories"
                         title="{{ category.category_name_en }}"
                         v-on:click="activeTab($event)"
