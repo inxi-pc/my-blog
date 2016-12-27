@@ -1,7 +1,6 @@
-
 <style src="app_asset/css/grid.css"></style>
-<style src="app_asset/css/normalize.css"></style>
-<style src="app_asset/css/style.css"></style>
+<style src="app_asset/css/style.css"></style
+<style src="normalize.css/css/normalize.css"></style>>
 <style src="highlight.js/styles/dark.css"></style>
 
 <template>
