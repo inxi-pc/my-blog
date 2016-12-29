@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cur_dir=`pwd`
-conf_dir=$cur_dir/src/main/resources
 env='development'
 region='local'
 enable_dev_server=false
@@ -80,5 +78,5 @@ else
     npm run build
 fi
 
-echo_with_date 'End Task with success status'
+echo_with_date 'End task with success status'
 exit
