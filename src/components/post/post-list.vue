@@ -83,11 +83,11 @@ export default {
         getPostsByCategoryId: function (categoryId) {
             var page = new Pagination(this.offset, this.limit);
             var sort = new Sort(this.orderType, this.orderBy, "category_id");
-            new Post().getPostList(this, {category_id: categoryId}, page, sort)
+            new Post().getPostList(this, {category_id: categoryId, post_published: 1}, page, sort)
             .then((response) => {
                 this.posts = response.body.data;
             }, (response) => {
-
+                this.posts = [];
             });
         }
     },

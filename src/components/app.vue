@@ -37,7 +37,7 @@ export default {
             $(event.target).find("pre code").each(function (i, e) {
                 $(e).addClass("hljs");
             })
-        })
+        });
     }
 }
 </script>

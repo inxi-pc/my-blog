@@ -1,4 +1,5 @@
 {
-    "apiGateway": "http://45.76.202.96:8080",
+    "remoteApiGateway": "http://45.76.202.96:8888",
+    "localApiGateway": "http://localhost:8888",
     "pingInterval": 30000
 }

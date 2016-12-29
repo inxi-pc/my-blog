@@ -10,7 +10,7 @@
             <div class="colgroup">
                 <div class="site-name col-mb-12 col-9">
                     <a id="logo" href="">Owen's Bear</a>
-                    <p class="description">Programming is life</p>
+                    <p class="description">Let's to eat code</p>
                 </div>
                 <div class="site-search col-3 kit-hidden-tb">
                     <form id="search" method="post" action="" role="search">
@@ -72,7 +72,6 @@ export default {
         new Category().getCategoryList(this, {category_enabled: true}, page, sort).then((response) => {
             this.categories = response.body.data;
         }, (response) => {
-            console.log(response);
             this.categories = [];
         })
     },

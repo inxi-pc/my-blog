@@ -45,7 +45,7 @@ export default {
             new Post().getPostById(this, postId).then((response) => {
                 this.post = response.body;
             }, (response) => {
-                console.log(response);
+                this.post = {};
             });
         }
     },
