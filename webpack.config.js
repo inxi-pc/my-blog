@@ -39,6 +39,12 @@ module.exports = {
             {
                 test: /\.(png|jpg|gif)$/,
                 loader: 'url-loader?limit=8192'
+            },
+            {
+                test: /highlight.js\//,
+                loaders: [
+                    'imports?this=>window'
+                ]
             }
         ]
     },

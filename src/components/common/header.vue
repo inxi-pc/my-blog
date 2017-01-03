@@ -9,7 +9,7 @@
         <div class="container">
             <div class="colgroup">
                 <div class="site-name col-mb-12 col-9">
-                    <a id="logo" href="">Owen's Bear</a>
+                    <a id="logo" href="">Owen's bear</a>
                     <p class="description">Let's to eat code</p>
                 </div>
                 <div class="site-search col-3 kit-hidden-tb">

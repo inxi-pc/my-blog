@@ -1,7 +1,8 @@
 <style src="app_asset/css/grid.css"></style>
-<style src="app_asset/css/style.css"></style
-<style src="normalize.css/css/normalize.css"></style>>
+<style src="app_asset/css/style.css"></style>
+<style src="normalize.css/normalize.css"></style>
 <style src="highlight.js/styles/dark.css"></style>
+<style src="github-markdown-css/github-markdown.css"></style>
 
 <template>
     <div>
@@ -32,11 +33,10 @@ export default {
     },
 
     ready: function () {
-        hljs.initHighlightingOnLoad();
         $(document).on("DOMNodeInserted", function (event) {
             $(event.target).find("pre code").each(function (i, e) {
-                $(e).addClass("hljs");
-            })
+                hljs.highlightBlock(e);
+            });
         });
     }
 }
