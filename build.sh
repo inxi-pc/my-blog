@@ -73,8 +73,8 @@ else
     npm run build:prod
 fi
 
-echo_with_date "Express server running..."
 if $enable_dev_server ; then
+    echo_with_date "Express server running..."
     npm run dev
 fi
 
