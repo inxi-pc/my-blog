@@ -1,35 +1,35 @@
 #!/bin/bash
 
 env='development'
-region='local'
+api_region='local'
 enable_dev_server=false
 
 VALID_ENV=('production' 'development')
-VALID_REGION=('local' 'remote')
+VALID_API_REGION=('local' 'remote')
 
 function check_env {
-    exist=0
+    error=0
     for i in "${VALID_ENV[@]}"
     do
         if [[ $i = $1 ]]; then
-            exist=1
+            error=1
         fi
     done
-    if [[ $exist = 0 ]]; then
-        error_exit "`date "+%Y-%m-%d% %H:%M:%S"` Error: Not valid region, Got $1"
+    if [[ $error = 0 ]]; then
+        error_exit "`date "+%Y-%m-%d% %H:%M:%S"` Error: Not valid env, Got $1"
     fi
 }
 
-function check_region {
-    exist=0
-    for i in "${VALID_REGION[@]}"
+function check_api_region {
+    error=0
+    for i in "${VALID_API_REGION[@]}"
     do
         if [[ $i = $1 ]]; then
-            exist=1
+            error=1
         fi
     done
-    if [[ $exist = 0 ]]; then
-        error_exit "Error: Not valid region, Got $1"
+    if [[ $error = 0 ]]; then
+        error_exit "Error: Not valid api region, Got $1"
     fi
 }
 
@@ -51,11 +51,11 @@ while [ $param_index -le $# ];do
             check_env $env
             env=${env:-development}
     ;;
-        -region)
+        -api_region)
             shift
-            region=${!param_index}
-            check_region $region
-            region=${region:-local}
+            api_region=${!param_index}
+            check_api_region $api_region
+            api_region=${api_region:-local}
     ;;
         --enable_server)
             enable_dev_server=true
@@ -64,18 +64,18 @@ while [ $param_index -le $# ];do
     param_index=$(expr $param_index + 1)
 done
 
-echo_with_date "Grunt.js task running..."
+echo_with_date "Grunt.js task && NPM build task running..."
 if [ $env = 'development' ]; then
-    grunt build:dev:$region
+    grunt build:dev:$api_region
+    npm run build:dev
 else
-    grunt build:prod:$region
+    grunt build:prod:$api_region
+    npm run build:prod
 fi
 
-echo_with_date "NPM task running..."
+echo_with_date "Express server running..."
 if $enable_dev_server ; then
     npm run dev
-else
-    npm run build
 fi
 
 echo_with_date 'End task with success status'

@@ -11,7 +11,8 @@ module.exports = {
     output: {
         path: __dirname + '/dist',
         publicPath: "/dist",
-        filename: 'js/build.js'
+        filename: 'js/build.js',
+        chunkFilename: "[id].chunk.js"
     },
 
     module: {
@@ -68,6 +69,12 @@ module.exports = {
     },
 
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
+            }
+        }),
+
         new ExtractTextPlugin("css/[name].css"),
 
         new webpack.ProvidePlugin({
@@ -87,4 +94,13 @@ module.exports = {
         presets: ['es2015'],
         plugins: ['transform-runtime']
     }
-}
+};
+
+(function() {
+    // get external env
+    if (process.env.NODE_ENV == 'production') {
+        module.exports.plugins.push(new webpack.optimize.UglifyJsPlugin({
+            compress: { warnings: false }
+        }));
+    }
+})()
