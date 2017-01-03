@@ -51,7 +51,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --hot",
     "build:dev": "webpack --progress --display-modules --display-chunks -v",
-    "build:prod": "NODE_ENV=production webpack --progress --display-modules --display-chunks -v"
+    "build:prod": "NODE_ENV=production webpack --progress"
   },
   "author": "Owen Xiong",
   "license": "ISC"
