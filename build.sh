@@ -71,7 +71,7 @@ else
     grunt build:prod:$region
 fi
 
-echo_with_date "Dev server task running..."
+echo_with_date "NPM task running..."
 if $enable_dev_server ; then
     npm run dev
 else
