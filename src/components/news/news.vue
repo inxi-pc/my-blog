@@ -86,6 +86,7 @@ export default {
             new Post().getPostList(this, {post_enabled: true, post_published: true}, page, sort)
             .then((response) => {
                 this.posts = response.body.data;
+                this.replacePostsMore(this.posts);
             }, (response) => {
                 this.posts = [];
             });
