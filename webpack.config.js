@@ -19,12 +19,16 @@ module.exports = {
         loaders: [
             {
                 test: /\.vue$/,
-                loader: 'vue'
+                loader: 'vue-loader'
             },
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules\//
+            },
+            {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
             },
             {
                 test: /\.json$/,
@@ -33,30 +37,25 @@ module.exports = {
             },
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-                loader: 'file-loader?name=resource/[name].[ext]'
+                loader: 'file-loader',
+                options: {
+                    name: 'resource/[name].[ext]'
+                }
             },
             // Todo: url-loader has a bug, if file length > limit
             // then the file name is not same as prefix rule
             {
                 test: /\.(png|jpg|gif)$/,
-                loader: 'url-loader?limit=8192'
+                loader: 'url-loader',
+                options: {
+                    limit: 8192
+                }
             },
             {
                 test: /highlight.js\//,
-                loaders: [
-                    'imports?this=>window'
-                ]
+                loader: 'imports-loader?this=>window'
             }
         ]
-    },
-
-    vue: {
-        loaders: {
-            css: ExtractTextPlugin.extract(
-                "style-loader",
-                "css-loader"
-            )
-        }
     },
 
     resolve: {
@@ -75,6 +74,15 @@ module.exports = {
             }
         }),
 
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                babel: {
+                    presets: ['es2015'],
+                    plugins: ['transform-runtime']
+                }
+            }
+        }),
+
         new ExtractTextPlugin("css/[name].css"),
 
         new webpack.ProvidePlugin({
@@ -88,12 +96,7 @@ module.exports = {
             filename: "js/vendor.bundle.js",
             name: 'vendor'
         })
-    ],
-
-    babel: {
-        presets: ['es2015'],
-        plugins: ['transform-runtime']
-    }
+    ]
 };
 
 (function() {
