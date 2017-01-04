@@ -7,33 +7,37 @@ var appConfigPath = __dirname + '/';
 var appApiPath = __dirname + '/src/api/';
 
 module.exports = {
-    entry: './src/main.js',
+    entry: {
+        main: './src/main.js'
+    },
+
     output: {
         path: __dirname + '/dist',
-        publicPath: "/dist",
-        filename: 'js/build.js',
-        chunkFilename: "[id].chunk.js"
+        publicPath: "/dist/",
+        filename: 'js/[name].bundle.js'
     },
 
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
             },
             {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: /node_modules\//
-            },
-            {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader' })
+                loader: ExtractTextPlugin.extract({
+                    fallbackLoader: "style-loader",
+                    loader: "css-loader"
+                })
             },
             {
-                test: /\.json$/,
-                loader: 'json-loader',
-                exclude: /node_modules\//
+                test: /\.js$/,
+                exclude: /node_modules\//,
+                loader: 'babel-loader',
+                options: {
+                    presets: ['es2015'],
+                    plugins: ['transform-runtime']
+                }
             },
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
@@ -74,27 +78,17 @@ module.exports = {
             }
         }),
 
-        new webpack.LoaderOptionsPlugin({
-            options: {
-                babel: {
-                    presets: ['es2015'],
-                    plugins: ['transform-runtime']
-                }
-            }
-        }),
+        new ExtractTextPlugin("styles.css"),
 
-        new ExtractTextPlugin("css/[name].css"),
+        new webpack.LoaderOptionsPlugin({
+            debug: true
+        }),
 
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
             "window.jQuery": "jquery",
             "window.$": "jquery"
-        }),
-
-        new webpack.optimize.CommonsChunkPlugin({
-            filename: "js/vendor.bundle.js",
-            name: 'vendor'
         })
     ]
 };
