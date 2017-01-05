@@ -18,7 +18,7 @@ module.exports = {
     },
 
     output: {
-        path: __dirname + '/dist',
+        path: __dirname + '/dist/',
         publicPath: "/dist/",
         filename: 'js/[name].bundle.js',
         chunkFilename: 'js/chunk/[name].js'
@@ -108,6 +108,7 @@ module.exports = {
 };
 
 (function() {
+    // add UglifyJsPlugin
     if (!isDebug) {
         module.exports.plugins.push(new webpack.optimize.UglifyJsPlugin({
             compress: { warnings: false }
