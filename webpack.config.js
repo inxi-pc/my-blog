@@ -6,6 +6,9 @@ var appLibPath = __dirname + '/src/lib/';
 var appConfigPath = __dirname + '/';
 var appApiPath = __dirname + '/src/api/';
 
+// swith the prod or dev config, will affect plugin
+var isDebug = process.env.NODE_ENV == 'production' ? false : true;
+
 module.exports = {
     entry: {
         main: './src/main.js',
@@ -19,6 +22,10 @@ module.exports = {
         publicPath: "/dist/",
         filename: 'js/[name].bundle.js',
         chunkFilename: 'js/chunk/[name].js'
+    },
+
+    performance: {
+        hints: isDebug
     },
 
     module: {
@@ -65,14 +72,9 @@ module.exports = {
     },
 
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
-            }
-        }),
-
         new webpack.LoaderOptionsPlugin({
-            debug: true,
+            debug: isDebug,
+            minimize: !isDebug,
             options: {
                 vue: {
                     loaders: {
@@ -106,8 +108,7 @@ module.exports = {
 };
 
 (function() {
-    // get external env
-    if (process.env.NODE_ENV == 'production') {
+    if (!isDebug) {
         module.exports.plugins.push(new webpack.optimize.UglifyJsPlugin({
             compress: { warnings: false }
         }));
