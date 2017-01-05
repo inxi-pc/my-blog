@@ -24,7 +24,6 @@
 <script>
 import header from './common/header.vue'
 import footer from './common/footer.vue'
-import hljs from 'highlight.js'
 
 export default {
     components: {
@@ -33,11 +32,14 @@ export default {
     },
 
     ready: function () {
-        $(document).on("DOMNodeInserted", function (event) {
-            $(event.target).find("pre code").each(function (i, e) {
-                hljs.highlightBlock(e);
+        require.ensure(['highlight.js'], function (require) {
+            var hljs = require('highlight.js');
+            $(document).on("DOMNodeInserted", function (event) {
+                $(event.target).find("pre code").each(function (i, e) {
+                    hljs.highlightBlock(e);
+                });
             });
-        });
+        })
     }
 }
 </script>

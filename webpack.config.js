@@ -8,13 +8,17 @@ var appApiPath = __dirname + '/src/api/';
 
 module.exports = {
     entry: {
-        main: './src/main.js'
+        main: './src/main.js',
+        'vendor': [
+            'jquery'
+        ]
     },
 
     output: {
         path: __dirname + '/dist',
         publicPath: "/dist/",
-        filename: 'js/[name].bundle.js'
+        filename: 'js/[name].bundle.js',
+        chunkFilename: 'js/chunk/[name].js'
     },
 
     module: {
@@ -24,20 +28,9 @@ module.exports = {
                 loader: 'vue-loader'
             },
             {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallbackLoader: "style-loader",
-                    loader: "css-loader"
-                })
-            },
-            {
                 test: /\.js$/,
                 exclude: /node_modules\//,
-                loader: 'babel-loader',
-                options: {
-                    presets: ['es2015'],
-                    plugins: ['transform-runtime']
-                }
+                loader: 'babel-loader'
             },
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
@@ -78,10 +71,25 @@ module.exports = {
             }
         }),
 
-        new ExtractTextPlugin("styles.css"),
-
         new webpack.LoaderOptionsPlugin({
-            debug: true
+            debug: true,
+            options: {
+                vue: {
+                    loaders: {
+                        css: ExtractTextPlugin.extract({
+                            fallbackLoader: 'style-loader',
+                            loader: 'css-loader',
+                            publicPath: '/dist/'
+                        })
+                    }
+                }
+            }
+        }),
+
+        new ExtractTextPlugin({
+            filename: 'css/[name].css',
+            disable: false,
+            allChunks: true
         }),
 
         new webpack.ProvidePlugin({
@@ -89,6 +97,10 @@ module.exports = {
             jQuery: "jquery",
             "window.jQuery": "jquery",
             "window.$": "jquery"
+        }),
+
+        new webpack.optimize.CommonsChunkPlugin({
+            names: ['vendor', 'mainfest']
         })
     ]
 };
