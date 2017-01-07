@@ -6,7 +6,7 @@
             </h2>
             <ul class="post-meta">
                 <li>
-                    Author：{{ post.user.user_name }}
+                    Author：{{ post.user_name }}
                 </li>
                 <li>Time：{{ post.post_created_at }}</li>
                 <li>Category：
@@ -16,7 +16,7 @@
                             category_id: post.category_id
                         }
                     }">
-                        {{ post.category.category_name_en }}
+                        {{ post.category_name_en }}
                     </a>
                 </li>
             </ul>
