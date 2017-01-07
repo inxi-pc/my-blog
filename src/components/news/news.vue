@@ -14,11 +14,11 @@
                 </h2>
                 <ul class="post-meta">
                     <li>
-                        Author：{{ post.user_name }}
+                        Author：{{ post.user.user_name }}
                     </li>
                     <li>Time：{{ post.post_created_at }}</li>
                     <li>
-                        Category：{{ post.category_name }}
+                        Category：{{ post.category.category_name_en }}
                     </li>
                 </ul>
                 <div class="post-content">
@@ -83,7 +83,10 @@ export default {
         getNewestPosts: function () {
             var page = new Pagination(this.offset, this.limit);
             var sort = new Sort(this.orderType, this.orderBy, "post_created_at");
-            new Post().getPostList(this, {post_enabled: true, post_published: true}, page, sort)
+            new Post().getPostList(this, {
+                post_enabled: true,
+                post_published: true
+            }, page, sort, true, true)
             .then((response) => {
                 this.posts = response.body.data;
                 this.replacePostsMore(this.posts);

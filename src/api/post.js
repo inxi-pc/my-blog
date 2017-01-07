@@ -29,7 +29,7 @@ export default class Post extends API {
     }
 
     /**
-     * 
+     *
      * @return Promise
      */
     createPost(vue, post) {
@@ -40,11 +40,11 @@ export default class Post extends API {
             headers: {
                 Authorization: 'bearer ' + API.getAuthorizedToken()
             }
-        });    
+        });
     }
 
     /**
-     * 
+     *
      * @return Promise
      */
     updatePost(vue, postId, post) {
@@ -60,9 +60,9 @@ export default class Post extends API {
             }
         });
     }
-    
+
     /**
-     * 
+     *
      * @return Promise
      */
     deletePost(vue, postId) {
@@ -74,51 +74,39 @@ export default class Post extends API {
             }
         });
     }
-    
+
     /**
-     * 
+     *
      * @return Promise
      */
-    getPostById(vue, postId) {
+    getPostById(vue, postId, withUser = false, withCategory = false) {
         var url = this.apiGateway + postId;
 
         return vue.$http.get(url, {
             headers: {
                 Authorization: 'bearer ' + API.getAuthorizedToken()
-            }
-        });
-    }
-    
-    /**
-     * 
-     * @return Promise
-     */
-    getPostsByIds(vue, postIds) {
-        return this.getPosts(vue, postIds, {
-            headers: {
-                Authorization: 'bearer ' + API.getAuthorizedToken()
+            },
+            params: {
+                withUser: withUser,
+                withCategory: withCategory
             }
         });
     }
 
     /**
-     * 
+     *
      * @return Promise
      */
-    getPostsByCondition(vue, conditions) {
-        return this.getPosts(vue, conditions, {
-            headers: {
-                Authorization: 'bearer ' + API.getAuthorizedToken()
-            }
-        });
+    getPostsByCondition(vue, conditions, withUser = false, withCategory = false) {
+        return this.getPosts(vue, conditions, withUser, withCategory);
     }
 
     /**
-     * 
+     *
      * @return Promise
      */
-    getPostList(vue, conditions, page, order) {
-        var params = API.mergeParams(conditions, page, order);
+    getPostList(vue, conditions, page, order, withUser = false, withCategory = false) {
+        var params = API.mergeParams(conditions, page, order, { withUser: withUser, withCategory: withCategory });
         var url = this.listApiGateway;
 
         return vue.$http.get(url, {
@@ -130,11 +118,11 @@ export default class Post extends API {
     }
 
     /**
-     * 
+     *
      * @return Promise
      */
-    getPosts(vue, conditions) {
-        var params = API.mergeParams(conditions);
+    getPosts(vue, conditions, withUser = false, withCategory = false) {
+        var params = API.mergeParams(conditions, { withUser: withUser, withCategory: withCategory });
 
         return vue.$http.get(this.apiGateway, {
             params: params,

@@ -6,7 +6,7 @@
             </h2>
             <ul class="post-meta">
                 <li>
-                    Author：{{ post.user_name }}
+                    Author：{{ post.user.user_name }}
                 </li>
                 <li>Time：{{ post.post_created_at }}</li>
                 <li>Category：
@@ -16,7 +16,7 @@
                             category_id: post.category_id
                         }
                     }">
-                        {{ post.category_name }}
+                        {{ post.category.category_name_en }}
                     </a>
                 </li>
             </ul>
@@ -42,7 +42,8 @@ export default {
 
     methods: {
         getPostById: function (postId) {
-            new Post().getPostById(this, postId).then((response) => {
+            new Post().getPostById(this, postId, true, true)
+            .then((response) => {
                 this.post = response.body;
             }, (response) => {
                 this.post = {};
