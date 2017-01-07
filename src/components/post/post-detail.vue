@@ -1,29 +1,31 @@
 <template>
     <div>
-        <article class="post">
-            <h2 class="post-title">
-                {{ post.post_title }}
-            </h2>
-            <ul class="post-meta">
-                <li>
-                    Author：{{ post.user_name }}
-                </li>
-                <li>Time：{{ post.post_created_at }}</li>
-                <li>Category：
-                    <a v-link="{
-                        name: 'post-list',
-                        query: {
-                            category_id: post.category_id
-                        }
-                    }">
-                        {{ post.category_name_en }}
-                    </a>
-                </li>
-            </ul>
-            <div class="post-content">
-                {{{ post.post_content }}}
-            </div>
-        </article>
+        <div v-if="!$loadingRouteData">
+            <article class="post">
+                <h2 class="post-title">
+                    {{ post.post_title }}
+                </h2>
+                <ul class="post-meta">
+                    <li>
+                        Author：{{ post.user_name }}
+                    </li>
+                    <li>Time：{{ post.post_created_at }}</li>
+                    <li>Category：
+                        <a v-link="{
+                            name: 'post-list',
+                            query: {
+                                category_id: post.category_id
+                            }
+                        }">
+                            {{ post.category.category_name_en }}
+                        </a>
+                    </li>
+                </ul>
+                <div class="post-content">
+                    {{{ post.post_content }}}
+                </div>
+            </article>
+        </div>
     </div>
 </template>
 
@@ -42,7 +44,7 @@ export default {
 
     methods: {
         getPostById: function (postId) {
-            new Post().getPostById(this, postId, true, true)
+            return new Post().getPostById(this, postId, true, true)
             .then((response) => {
                 this.post = response.body;
             }, (response) => {
@@ -52,10 +54,10 @@ export default {
     },
 
     route: {
-        data ({ to }) {
-            if (!Helper.isNullOrEmpty(to.params.postId)) {
-                var postId = to.params.postId;
-                this.getPostById(postId);
+        data: function (transition) {
+            if (!Helper.isNullOrEmpty(transition.to.params.postId)) {
+                var postId = transition.to.params.postId;
+                return this.getPostById(postId);
             }
         }
     }

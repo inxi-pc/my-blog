@@ -14,11 +14,11 @@
                 </h2>
                 <ul class="post-meta">
                     <li>
-                        Author：{{ post.user_name }}
+                        Author：{{ post.user.user_name }}
                     </li>
                     <li>Time：{{ post.post_created_at }}</li>
                     <li>
-                        Category：{{ post.category_name }}
+                        Category：{{ post.category.category_name_en }}
                     </li>
                 </ul>
                 <div class="post-content">

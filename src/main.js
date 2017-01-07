@@ -4,9 +4,6 @@ import VueRouter from 'vue-router'
 import Entry from 'app_lib/entry.js'
 
 import app from './components/app.vue'
-import news from './components/news/news.vue'
-import postList from './components/post/post-list.vue'
-import postDetail from './components/post/post-detail.vue'
 
 Vue.use(VueRouter)
 
@@ -17,15 +14,21 @@ var router = new VueRouter({
 router.map({
     '/': {
         name: 'news',
-        component: news
+        component: function (resolve) {
+          require(['./components/news/news.vue'], resolve)
+        }
     },
     '/posts' : {
         name: 'post-list',
-        component: postList
+        component: function (resolve) {
+          require(['./components/post/post-list.vue'], resolve)
+        }
     },
     '/post/:postId': {
         name: 'post-detail',
-        component: postDetail
+        component: function (resolve) {
+          require(['./components/post/post-detail.vue'], resolve)
+        }
     }
 })
 
