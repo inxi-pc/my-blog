@@ -1,11 +1,11 @@
 <template>
     <div>
-        <ol class="page-navigator">
-            <li v-for="i in total" v-bind:class="{'current': isCurrent(i)}">
-                <a v-on:click="sendPaginationMsg(i)">{{ i + 1 }}</a>
+        <ol class="page-navigator" id="pageIndicatorList">
+            <li v-for="i in pageTotal" v-bind:class="{ 'current': i == pageNumber }">
+                <button v-on:click="activePage(i, $event)">{{ i + 1 }}</button>
             </li>
-            <li v-if="isRenderNextButton()">
-                <a class="next" v-on:click="sendPaginationMsg(current + 1)">Next »</a>
+            <li v-if="ifRenderNextButton()">
+                <button href="javascript:;" class="next" v-on:click="activeNextPage(pageNumber + 1)">Next »</button>
             </li>
         </ol>
     </div>
@@ -15,42 +15,79 @@
 export default {
     data: function() {
         return {
-            'maxPages': 4
+            'nextButtonPosition': 0,
         }
     },
 
     props: {
-        current: {
+        limit: {
             type: Number,
             required: true
         },
-
+        offset: {
+            type: Number,
+            required: true
+        },
         total: {
             type: Number,
             required: true
         }
     },
 
+    computed: {
+        pageNumber: function () {
+            return Math.ceil(this.offset / this.limit);
+        },
+
+        pageTotal: function () {
+            return Math.ceil(this.total / this.limit);
+        },
+
+        pageLength: function () {
+            return this.limit;
+        }
+    },
+
     methods: {
-        isCurrent: function (index) {
-            return this.current == index;
+        ifRenderNextButton: function () {
+            return this.pageTotal > this.nextButtonPosition;
         },
 
-        isRenderNextButton: function () {
-            return this.total > this.maxPages;
+        isLasPage: function (i) {
+            return i > this.pageTotal - 1;
         },
 
-        sendPaginationMsg: function(index) {
-            if (index > this.total - 1) {
+        activePage: function (i, event) {
+            var active = $(event.target).parent();
+            active.siblings().removeClass("current");
+            active.addClass('current');
+
+            this.sendPaginationMsg(i);
+        },
+
+        activeNextPage: function (i) {
+            if (this.isLasPage(i)) {
                 alert("pagination overflow!");
-            } else {
-                var msg = {
-                    'current': index,
-                    'total': this.total
-                };
 
-                this.$dispatch('pagination', msg);
+                return;
             }
+            var root = $(this.$el);
+            var active = root.find("#pageIndicatorList").children("li").eq(i);
+            active.siblings().removeClass('current');
+            active.addClass('current');
+
+            this.sendPaginationMsg(i);
+        },
+
+        sendPaginationMsg: function(i) {
+            this.offset = i * this.limit;
+            var msg = {
+                'offset': this.offset,
+                'limit': this.limit,
+                'total': this.total
+            };
+
+            this.$dispatch('pagination', msg);
         }
     }
 }

@@ -59,16 +59,18 @@ export default class Category extends API {
     updateCategory(vue, categoryId, category) {
         var url = this.apiGateway + categoryId;
 
-        category.category_id = null;
-        category.category_parent_id = null;
-        category.category_root_id = null;
-        category.category_level = null;
-        category.category_created_at = null;
-        category.category_updated_at = null;
-        category.category_enabled = null;
-        category.children = null;
+        var update = new CategoryModel();
+        API.clone(update, category);
+        update.category_id = null;
+        update.category_parent_id = null;
+        update.category_root_id = null;
+        update.category_level = null;
+        update.category_created_at = null;
+        update.category_updated_at = null;
+        update.category_enabled = null;
+        update.children = null;
 
-        return vue.$http.put(url, category, {
+        return vue.$http.put(url, update, {
             headers: {
                 Authorization: 'bearer ' + API.getAuthorizedToken()
             }

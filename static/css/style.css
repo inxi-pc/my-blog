@@ -1,29 +1,16 @@
 /* Begin common */
+
 body {
     background-color: #FFF;
     color: #444;
     font-family: "Droid Serif", Georgia, "Times New Roman", STHeiti, serif;
-    font-size: 87.5%;
-}
-
-a {
-    color: #3354AA;
-    text-decoration: none;
-}
-
-a:hover,
-a:active {
-    color: #444;
+    font-size: 14px;
 }
 
 blockquote {
     margin: 1em 0em;
     padding-left: 1.5em;
     border-left: 4px solid #F3F3F0;
-}
-
-figure {
-    margin: 0px;
 }
 
 h1,
@@ -59,19 +46,21 @@ textarea {
     visibility: hidden;
 }
 
-.post-meta a,
-.post-content a,
-.widget a {
+a {
+    color: #3354AA;
+    text-decoration: none;
     border-bottom: 1px solid #EEE;
 }
 
-.post-meta a:hover,
-.post-content a:hover,
-.widget a:hover {
+a:hover,
+ :active {
     border-bottom-color: transparent;
+    color: #444;
 }
 
+
 /* Begin header */
+
 #header {
     padding-top: 35px;
     border-bottom: 1px solid #cecece;
@@ -155,7 +144,10 @@ textarea {
     position: static;
     width: auto;
 }
+
+
 /* Begin post */
+
 .post {
     padding: 15px 0 20px;
     border-bottom: 1px solid #EEE;
@@ -174,7 +166,7 @@ textarea {
 }
 
 .post-meta li {
-    display: inline-block;
+    display: inline;
     margin: 0 8px 0 0;
     padding-left: 12px;
     border-left: 1px solid #EEE;
@@ -248,17 +240,15 @@ img.alignright {
 }
 
 .more {
-    text-align: center;
+    text-align: right;
 }
 
 .more a {
     border: none;
 }
 
-.protected .text {
-    width: 50%;
-}
 /* Begin pagination */
+
 .page-navigator {
     list-style: none;
     margin: 25px 0;
@@ -271,49 +261,22 @@ img.alignright {
     margin: 0 4px;
 }
 
-.page-navigator a {
-    display: inline-block;
-    padding: 0 10px;
-    height: 30px;
-    line-height: 30px;
+.page-navigator .current button {
+    color: red;
 }
 
-.page-navigator a:hover {
-    background: #EEE;
-    text-decoration: none;
-}
-
-.page-navigator .current a {
-    color: #444;
-    background: #EEE;
-}
-/* Begin second area*/
-#secondary {
-    padding-top: 15px;
-    word-wrap: break-word;
-}
-
-.widget {
-    margin-bottom: 30px;
-}
-
-.widget-list {
-    list-style: none;
-    padding: 0;
-}
-
-.widget-list li {
-    margin: 5px 0;
-    line-height: 1.5;
-}
 /* Begin footer*/
+
 #footer {
     padding: 3em 0;
     line-height: 1.5;
     text-align: center;
     color: #999;
 }
+
+
 /* Begin bootsrap */
+
 @media(max-width:767px) {
     body {
         font-size: 81.25%;

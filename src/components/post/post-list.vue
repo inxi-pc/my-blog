@@ -17,8 +17,15 @@
                         Author：{{ post.user.user_name }}
                     </li>
                     <li>Time：{{ post.post_created_at }}</li>
-                    <li>
-                        Category：{{ post.category.category_name_en }}
+                    <li>Category：
+                        <a v-link="{
+                            name: 'post-list',
+                            query: {
+                                category_id: post.category_id
+                            }
+                        }">
+                            {{ post.category.category_name_en }}
+                        </a>
                     </li>
                 </ul>
                 <div class="post-content">
@@ -30,14 +37,15 @@
                                 postId: post.post_id
                             }
                         }">
-                            - Read More -
+                            Read More>>
                         </a>
                     </p>
                 </div>
             </article>
         </div>
         <page
-            v-bind:current="offset"
+            v-bind:limit="limit"
+            v-bind:offset="offset"
             v-bind:total="total"
             v-on:pagination="updatePostList">
         </page>
@@ -50,8 +58,6 @@ import Sort from 'app_api/sort.js'
 import Post from 'app_api/post.js'
 import { PostModel } from 'app_api/post.js'
 
-import * as Helper from 'app_lib/helper.js'
-
 import page from '../common/pagination.vue'
 
 export default {
@@ -61,14 +67,10 @@ export default {
             // pagination
             orderType: "desc",
             orderBy: "post_id",
-            limit: 10,
+            limit: 1,
             offset: 0,
             total: 0
         }
-    },
-
-    ready: function() {
-
     },
 
     components: {
@@ -76,20 +78,23 @@ export default {
     },
 
     methods: {
-        updatePostList: function () {
-            return [];
+        updatePostList: function (e) {
+            this.offset = e.offset;
+            this.getPostsByCategoryId();
         },
 
         getPostsByCategoryId: function (categoryId) {
             var page = new Pagination(this.offset, this.limit);
             var sort = new Sort(this.orderType, this.orderBy, "category_id");
-            new Post().getPostList(this, {
+
+            return new Post().getPostList(this, {
                 category_id: categoryId,
                 post_published: true,
                 post_enabled: true
             }, page, sort, true, true)
             .then((response) => {
                 this.posts = response.body.data;
+                this.total = response.body.recordsTotal;
                 this.replacePostsMore(this.posts);
             }, (response) => {
                 this.posts = [];
@@ -98,10 +103,10 @@ export default {
     },
 
     route: {
-        data({ to }) {
-            if (!Helper.isNullOrEmpty(to.query.category_id)) {
-                var categoryId = to.query.category_id;
-                this.getPostsByCategoryId(categoryId);
+        data: function (transition) {
+            if (!this.isNullOrEmpty(transition.to.query.category_id)) {
+                var categoryId = transition.to.query.category_id;
+                return this.getPostsByCategoryId(categoryId);
             }
         }
     }

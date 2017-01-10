@@ -33,8 +33,6 @@
 import Post from 'app_api/post.js'
 import { PostModel } from 'app_api/post.js'
 
-import * as Helper from 'app_lib/helper.js'
-
 export default {
     data: function() {
         return {
@@ -55,7 +53,7 @@ export default {
 
     route: {
         data: function (transition) {
-            if (!Helper.isNullOrEmpty(transition.to.params.postId)) {
+            if (!this.isNullOrEmpty(transition.to.params.postId)) {
                 var postId = transition.to.params.postId;
                 return this.getPostById(postId);
             }
