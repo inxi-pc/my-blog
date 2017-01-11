@@ -4,7 +4,7 @@
             <li v-for="i in pageTotal" v-bind:class="{ 'current': i == pageNumber }">
                 <button v-on:click="activePage(i, $event)">{{ i + 1 }}</button>
             </li>
-            <li v-if="ifRenderNextButton()">
+            <li v-if="checkIfRenderNextButton()">
                 <button href="javascript:;" class="next" v-on:click="activeNextPage(pageNumber + 1)">Next »</button>
             </li>
         </ol>
@@ -49,11 +49,11 @@ export default {
     },
 
     methods: {
-        ifRenderNextButton: function () {
+        checkIfRenderNextButton: function () {
             return this.pageTotal > this.nextButtonPosition;
         },
 
-        isLasPage: function (i) {
+        checkIsLast: function (i) {
             return i > this.pageTotal - 1;
         },
 
@@ -66,7 +66,7 @@ export default {
         },
 
         activeNextPage: function (i) {
-            if (this.isLasPage(i)) {
+            if (this.checkIsLast(i)) {
                 alert("pagination overflow!");
 
                 return;
@@ -83,8 +83,6 @@ export default {
             this.offset = i * this.limit;
             var msg = {
                 'offset': this.offset,
-                'limit': this.limit,
-                'total': this.total
             };
 
             this.$dispatch('pagination', msg);

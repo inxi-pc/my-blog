@@ -80,16 +80,16 @@ export default {
     methods: {
         updatePostList: function (e) {
             this.offset = e.offset;
-            this.getNewestPosts();
+            this.getPostListByNews();
         },
 
-        getNewestPosts: function () {
+        getPostListByNews: function () {
             var page = new Pagination(this.offset, this.limit);
-            var sort = new Sort(this.orderType, this.orderBy, "post_created_at");
+            var sort = new Sort(this.orderType, this.orderBy, "category_id");
 
             return new Post().getPostList(this, {
-                post_enabled: true,
-                post_published: true
+                post_published: true,
+                post_enabled: true
             }, page, sort, true, true)
             .then((response) => {
                 this.posts = response.body.data;
@@ -102,8 +102,25 @@ export default {
     },
 
     route: {
+        canReuse: function (transition) {
+            return false;
+        },
+
         data: function (transition) {
-            return this.getNewestPosts();
+            if (!this.isNullOrEmpty(transition.to.params.limit)) {
+                this.limit = transition.to.param.limit;
+            }
+            if (!this.isNullOrEmpty(transition.to.params.offset)) {
+                this.offset = transition.to.param.offset;
+            }
+            if (!this.isNullOrEmpty(transition.to.params.orderBy)) {
+                this.orderBy = transition.to.param.orderBy;
+            }
+            if (!this.isNullOrEmpty(transition.to.params.orderType)) {
+                this.orderType = transition.to.param.orderType;
+            }
+
+            return this.getPostListByNews();
         }
     }
 }

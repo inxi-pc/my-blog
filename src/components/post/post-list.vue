@@ -80,18 +80,18 @@ export default {
     methods: {
         updatePostList: function (e) {
             this.offset = e.offset;
-            this.getPostsByCategoryId();
+            var condition = $.extend(this.$route.params, this.$route.query);
+            this.getPostList(condition);
         },
 
-        getPostsByCategoryId: function (categoryId) {
+        getPostList: function (condition) {
             var page = new Pagination(this.offset, this.limit);
             var sort = new Sort(this.orderType, this.orderBy, "category_id");
 
-            return new Post().getPostList(this, {
-                category_id: categoryId,
+            return new Post().getPostList(this, $.extend({
                 post_published: true,
                 post_enabled: true
-            }, page, sort, true, true)
+            }, condition), page, sort, true, true)
             .then((response) => {
                 this.posts = response.body.data;
                 this.total = response.body.recordsTotal;
@@ -103,10 +103,26 @@ export default {
     },
 
     route: {
+        canReuse: function (transition) {
+            return false;
+        },
+
         data: function (transition) {
+            if (!this.isNullOrEmpty(transition.to.params.limit)) {
+                this.limit = transition.to.param.limit;
+            }
+            if (!this.isNullOrEmpty(transition.to.params.offset)) {
+                this.limit = transition.to.param.offset;
+            }
+            if (!this.isNullOrEmpty(transition.to.params.orderBy)) {
+                this.limit = transition.to.param.orderBy;
+            }
+            if (!this.isNullOrEmpty(transition.to.params.orderType)) {
+                this.limit = transition.to.param.orderType;
+            }
             if (!this.isNullOrEmpty(transition.to.query.category_id)) {
                 var categoryId = transition.to.query.category_id;
-                return this.getPostsByCategoryId(categoryId);
+                return this.getPostList({ category_id: categoryId});
             }
         }
     }
