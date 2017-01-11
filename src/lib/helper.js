@@ -5,7 +5,7 @@ function isNullOrEmpty(value) {
     if (value == undefined || value == null) {
         return true;
     }
-    
+
     // empty
     if (Object.prototype.toString.call(value) == '[object String]') {
         if (value.length <= 0) {
@@ -20,7 +20,17 @@ function getConfig(name) {
     return config[name];
 }
 
-export { 
+function gotoModule(moduleName) {
+    window.location.href = '/' + moduleName + '.html';
+}
+
+function refreshPage() {
+    window.location.reload();
+}
+
+export {
     isNullOrEmpty,
-    getConfig
+    getConfig,
+    gotoModule,
+    refreshPage
 }

@@ -48,18 +48,6 @@ function replacePostsMore(posts) {
     }
 }
 
-function redirect(url) {
-    window.location.href = url;
-}
-
-function refreshPage() {
-    window.location.reload();
-}
-
-function redirectToLoginPage() {
-    var href = '/login.html';
-    redirect(href);
-}
 //---------------- export function end -----------------//
 
 //---------------- inner function start -----------------//
@@ -111,10 +99,6 @@ for (var i in Helper) {
 }
 methods['decodeQueryParams'] = decodeQueryParams;
 methods['replacePostsMore'] = replacePostsMore;
-methods['refreshPage'] = refreshPage;
-methods['redirect'] = redirect;
-methods['redirectToLoginPage'] = redirectToLoginPage;
-
 Vue.mixin({
     methods: methods
 })

@@ -38,7 +38,7 @@ export default class API {
 
     static responseHandler(response) {
         if (response.status == 401) {
-            window.location.href = '/login.html';
+            Helper.gotoModule('auth');
         }
     }
 
