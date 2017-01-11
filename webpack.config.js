@@ -4,7 +4,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var appAssetPath = __dirname + '/static/';
 var appLibPath = __dirname + '/src/lib/';
 var appConfigPath = __dirname + '/';
-var appApiPath = __dirname + '/src/api/';
+var appApiPath = __dirname + '/src/api/src/api/';
 
 // swith the prod or dev config, will affect plugin
 var isDebug = process.env.NODE_ENV == 'production' ? false : true;
