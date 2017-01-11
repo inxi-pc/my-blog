@@ -9,7 +9,7 @@
         <div class="container">
             <div class="colgroup">
                 <div class="site-name col-mb-12 col-9">
-                    <a id="logo" href="">Owen's thinking</a>
+                    <a id="logo" href="">Owen Xiong</a>
                     <p class="description">忠于理想</p>
                 </div>
                 <div class="site-search col-3 kit-hidden-tb">
