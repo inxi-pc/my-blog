@@ -1,4 +1,3 @@
 [submodule "src/api"]
 	path = src/api
 	url = https://github.com/inxi-pc/my-blog-sdk.git
-	ignore=all
