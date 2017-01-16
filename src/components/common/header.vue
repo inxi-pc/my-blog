@@ -10,7 +10,7 @@
             <div class="colgroup">
                 <div class="site-name col-mb-12 col-9">
                     <a id="logo" href="">Owen Xiong</a>
-                    <p class="description">忠于理想</p>
+                    <p class="description">Live and Coding</p>
                 </div>
                 <div class="site-search col-3 kit-hidden-tb">
                     <form id="search" method="post" action="" role="search">
