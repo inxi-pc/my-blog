@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 
-import * as Helper from './helper.js'
-import API from './api.js'
+import * as Helper from 'my-blog-sdk/helper'
+import API from 'my-blog-sdk/api'
 
 Vue.use(VueResource)
 Vue.http.interceptors.push((request, next) => {
